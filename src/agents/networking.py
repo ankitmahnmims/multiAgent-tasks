@@ -74,7 +74,12 @@ Return STRICT JSON ONLY (no markdown formatting around json, no commentary) with
 "referral_request": "<text>",
 "cold_email": "Subject: ...\\n\\n<text>"
 """
-        raw = self.call_openai([AgentMessage("user", prompt)], temperature=0.4, max_tokens=2000)
+        raw = self.call_openai(
+            [AgentMessage("user", prompt)],
+            temperature=0.4,
+            max_tokens=4000,
+            response_json=True
+        )
         parsed = self._safe_json(raw)
         
         dm = (parsed.get("referral_request") or "").strip()
@@ -108,7 +113,11 @@ Job Description: {job.get('description', '')[:2500]}
 
 Return STRICT JSON ONLY with keys "referral_request" and "cold_email".
 """
-        raw = self.call_openai([AgentMessage("user", prompt)], max_tokens=1500)
+        raw = self.call_openai(
+            [AgentMessage("user", prompt)],
+            max_tokens=4000,
+            response_json=True
+        )
         parsed = self._safe_json(raw)
 
         dm = (parsed.get("referral_request") or original_msgs.get("referral_request", "")).strip()

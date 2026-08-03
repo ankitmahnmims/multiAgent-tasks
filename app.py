@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from src.core.orchestrator import Orchestrator
 from src.core.coordinator import ReviewCoordinator
 
-load_dotenv()
+load_dotenv(override=True)
 
 orchestrator = Orchestrator()
 coordinator = ReviewCoordinator(orchestrator.cover, orchestrator.net)
@@ -109,7 +109,7 @@ theme = gr.themes.Soft(
     neutral_hue="slate"
 )
 
-with gr.Blocks(theme=theme, title="Multi-Agent AI Job Hunt Assistant") as demo:
+with gr.Blocks(title="Multi-Agent AI Job Hunt Assistant") as demo:
     gr.Markdown(
         """
         # 🤖 Multi-Agent AI Job Hunt Assistant
@@ -181,4 +181,4 @@ with gr.Blocks(theme=theme, title="Multi-Agent AI Job Hunt Assistant") as demo:
     )
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860, share=False)
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=False, theme=theme)
